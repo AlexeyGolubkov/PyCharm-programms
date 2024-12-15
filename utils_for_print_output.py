@@ -26,23 +26,27 @@ def print_in_output_file_name_from_line1_current_column(file_out, map_data_for_w
                 line_out_str.append(parts_command_str[3])
                 line_out_str.append(list_addition_parameter_network_last_ip[k])
                 line_out_str.append(parts_command_str[4])
-        aggregated_array_network, remaining_array_networks = aggregate_and_return_remaining_networks(array_network)
+        aggregated_array_network = aggregate_networks(array_network)
         with open(file_out, 'a') as file:
-            for network in aggregated_array_network:
-                print(network)
-            # for network in remaining_array_networks:
-            #     print(network)
-            # print(line_out_str)
-            # for break point
             line_out_str = [str(x) for x in line_out_str]
+            file.write(''.join(line_out_str))
+            line_out_str = [str(x) for x in line_data_of_network_aggregation(aggregated_array_network)]
             file.write(''.join(line_out_str))
 
     return
 
 
-# def print_in_output_file_name_data_of_network_agregation(file_out, network_agregation_array):
-#     str1 = 'ADD AGGREGATEROUTE:VRFNAME=\"gi_vpcef_\",AFTYPE=ipv4uni,AGGREADDRESS=\"'
-#     str2 = '\",MASKLENGTH='
-#     str3 = ',ASSETENABLE=FALSE,DETAILSUPPRESSED=TRUE;\n'
-#
-#     return
+def line_data_of_network_aggregation(network_agregation_array):
+    line_out_str=[]
+    parts_command_str = ['ADD AGGREGATEROUTE:VRFNAME=\"gi_vpcef_\",AFTYPE=ipv4uni,AGGREADDRESS=\"',
+                         '\",MASKLENGTH=',
+                         ',ASSETENABLE=FALSE,DETAILSUPPRESSED=TRUE;\n']
+    for network in network_agregation_array:
+        line_out_str.append(parts_command_str[0])
+        print('network:', network)
+        line_out_str.append(network.network_address)
+        line_out_str.append(parts_command_str[1])
+        line_out_str.append(network.prefixlen)
+        line_out_str.append(parts_command_str[2])
+
+    return line_out_str

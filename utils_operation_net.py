@@ -1,5 +1,5 @@
 import ipaddress
-def aggregate_and_return_remaining_networks(networks):
+def aggregate_networks(networks):
     # Создаем копию исходного списка сетей, чтобы избежать изменения оригинального списка
     remaining_networks = networks.copy()
     print('remaining_networks:', remaining_networks)
@@ -21,7 +21,7 @@ def aggregate_and_return_remaining_networks(networks):
     #             non_subnets.append(subnet)
     #     remaining_networks = non_subnets
 
-    return aggregated_networks, remaining_networks
+    return aggregated_networks
 
 def network_first_last(networks):
     # network = ipaddress.IPv4Network(networks)
