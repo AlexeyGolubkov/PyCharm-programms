@@ -24,11 +24,11 @@ def print_in_output_file_name_from_line1_current_column(file_out, map_data_for_w
                 line_out_str.append(parts_command_str[1])
                 line_out_str.append(j)
                 j=j+1
-                list_addition_parameter_network_begin_last = network_begin_last(array_network[i])
+                list_addition_parameter_network_first_ip,list_addition_parameter_network_last_ip = network_first_last(array_network[i])
                 line_out_str.append(parts_command_str[2])
-                line_out_str.append(list_addition_parameter_network_begin_last[0])
+                line_out_str.append(list_addition_parameter_network_first_ip[k])
                 line_out_str.append(parts_command_str[3])
-                line_out_str.append(list_addition_parameter_network_begin_last[1])
+                line_out_str.append(list_addition_parameter_network_last_ip[k])
                 line_out_str.append(parts_command_str[4])
         with open(file_out, 'a') as file:
             print(line_out_str)
@@ -39,13 +39,22 @@ def print_in_output_file_name_from_line1_current_column(file_out, map_data_for_w
     return
 
 
-def network_begin_last(networks):
+def network_first_last(networks):
     network = ipaddress.IPv4Network(networks)
-
+    first_ip_str = []
+    last_ip_str = []
     # Разделение сети на две равные части
     new_prefix = network.prefixlen + 1
     subnets = list(network.subnets(new_prefix=new_prefix))
-    return subnets
+
+    for network in subnets:
+        # Первый IP-адрес в сети (начало диапазона)
+        first_ip_str.append(str (network.network_address))
+        # Последний IP-адрес в сети (конец диапазона)
+        last_ip_str.append(str (network.broadcast_address))
+
+    return first_ip_str, last_ip_str
+
 # def print_in_output_file_name_data_of_network_agregation(file_out, network_agregation_array):
 #     str1 = 'ADD AGGREGATEROUTE:VRFNAME=\"gi_vpcef_\",AFTYPE=ipv4uni,AGGREADDRESS=\"'
 #     str2 = '\",MASKLENGTH='

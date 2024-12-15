@@ -51,6 +51,4 @@ print_in_output_file_name_from_line1_current_column(file_path + str(sheet.cell(r
                                                             excel_map_apn)
 # print_in_output_file_name_data_of_network_agregation(file_path+cell_value(row=1, column=k)+'.txt', array_network_for_all_apn)
 
-#for testing
-
-#for testing2
+#ready script ip start ip end
