@@ -52,6 +52,4 @@ for k in range(2, column_count + 1, 1):
         print('excel_map_apn:', excel_map_apn)
 print_in_output_file_name_from_line1_current_column(file_path + str(sheet.cell(row=1, column=k).value+'.txt'),
                                                             excel_map_apn)
-# print_in_output_file_name_data_of_network_agregation(file_path+cell_value(row=1, column=k)+'_aggreg.txt', array_network_for_all_apn)
 
-#ready script ip start ip end + print aggregation networks
